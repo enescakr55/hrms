@@ -10,19 +10,24 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
-
+@Entity
 @Data
-@Table(name="roles")
+@Table(name="jobseekers")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Role {
+public class Jobseeker {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
-	@Column(name="role_name")
-	private String roleName;
+	@Column(name="user_id")
+	private int userId;
+	@Column(name="tc_no")
+	private String tcNo;
+	@Column(name="first_name")
+	private String firstName;
+	@Column(name="last_name")
+	private String lastName;
+
 }

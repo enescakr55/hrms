@@ -4,9 +4,10 @@ import java.util.List;
 
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
-import project.hrms.entities.concretes.Role;
+import project.hrms.entities.concretes.Jobseeker;
 
-public interface RoleService {
-	DataResult<List<Role>> getAll();
-	Result add(Role role);
+public interface JobseekerService {
+
+		DataResult<List<Jobseeker>> getAll();
+		Result add(Jobseeker jobseeker);
 }

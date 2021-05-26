@@ -4,9 +4,9 @@ import java.util.List;
 
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
-import project.hrms.entities.concretes.Role;
+import project.hrms.entities.concretes.Employee;
 
-public interface RoleService {
-	DataResult<List<Role>> getAll();
-	Result add(Role role);
+public interface EmployeeService {
+	DataResult<List<Employee>> getAll();
+	Result add(Employee employee);
 }
