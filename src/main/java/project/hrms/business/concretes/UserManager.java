@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import project.hrms.business.abstracts.UserService;
 import project.hrms.core.utilities.results.DataResult;
+import project.hrms.core.utilities.results.ErrorResult;
 import project.hrms.core.utilities.results.Result;
 import project.hrms.core.utilities.results.SuccessDataResult;
 import project.hrms.core.utilities.results.SuccessResult;
@@ -27,8 +28,18 @@ public class UserManager implements UserService{
 	}
 	@Override
 	public Result add(User user) {
+		if(userDao.getByEmail(user.getEmail()) != null ) {
+			return new ErrorResult("Bu e posta adresi zaten kayıtlı");
+		}
 		userDao.save(user);
 		return new SuccessResult("Başarıyla Eklendi");
+	}
+	@Override
+	public DataResult<User> getByEmail(String email) {
+		return new SuccessDataResult<User>(userDao.getByEmail(email));
+	}
+	public DataResult<User> getById(int id){
+		return new SuccessDataResult<User>(userDao.getById(id));
 	}
 
 

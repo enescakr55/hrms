@@ -9,4 +9,6 @@ import project.hrms.entities.concretes.User;
 public interface UserService {
 	DataResult<List<User>> getAll();
 	Result add(User user);
+	DataResult<User> getByEmail(String email);
+	DataResult<User> getById(int id);
 }

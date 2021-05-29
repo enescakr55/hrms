@@ -1,0 +1,17 @@
+package project.hrms.business.abstracts;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import project.hrms.core.utilities.results.DataResult;
+import project.hrms.core.utilities.results.Result;
+import project.hrms.entities.concretes.JobAdvert;
+public interface JobAdvertService {
+	DataResult<List<JobAdvert>> getAll();
+	Result add(JobAdvert jobAdvert);
+	DataResult<List<JobAdvert>> getIsActive();
+	DataResult<List<JobAdvert>> getIsActiveOrderByDate();
+	DataResult<List<JobAdvert>> getByEmployerId(int employerId);
+	Result closeAdvert(int advertId);
+}

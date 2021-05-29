@@ -10,4 +10,5 @@ public interface JobseekerService {
 
 		DataResult<List<Jobseeker>> getAll();
 		Result add(Jobseeker jobseeker);
+		DataResult<Jobseeker> getByTcNo(String tcNo);
 }
