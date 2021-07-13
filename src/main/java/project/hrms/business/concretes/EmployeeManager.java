@@ -1,7 +1,7 @@
 package project.hrms.business.concretes;
 
 import java.util.List;
-import java.util.Locale;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,6 @@ import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
 import project.hrms.core.utilities.results.SuccessDataResult;
 import project.hrms.core.utilities.results.SuccessResult;
-import project.hrms.core.utilities.services.FakeMernisService;
 import project.hrms.dataacess.abstracts.EmployeeDao;
 import project.hrms.entities.concretes.Employee;
 @Service
@@ -33,6 +32,8 @@ public class EmployeeManager implements EmployeeService{
 		employeeDao.save(employee);
 		return new SuccessResult("Kayıt başarılı");
 	}
+
+	
 
 
 

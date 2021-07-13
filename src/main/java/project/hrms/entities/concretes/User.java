@@ -26,4 +26,6 @@ public class User {
 	private String email;
 	@Column(name="password")
 	private String password;
+	@Column(name="is_verified")
+	private boolean isVerified;
 }

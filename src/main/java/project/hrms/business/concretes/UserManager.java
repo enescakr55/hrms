@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import project.hrms.business.abstracts.EmployeeService;
+import project.hrms.business.abstracts.EmployerService;
+import project.hrms.business.abstracts.JobseekerService;
 import project.hrms.business.abstracts.UserService;
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.ErrorResult;
@@ -40,6 +43,17 @@ public class UserManager implements UserService{
 	}
 	public DataResult<User> getById(int id){
 		return new SuccessDataResult<User>(userDao.getById(id));
+	}
+	
+	public Result verifyUser(int userId) {
+		User getUser = userDao.getById(userId);
+		if(getUser != null) {
+			getUser.setVerified(true);
+			userDao.save(getUser);
+			return new SuccessResult("Kullanıcı doğrulandı");		
+		}else {
+			return new ErrorResult("Kullanıcı doğrulanamadı");
+		}
 	}
 
 

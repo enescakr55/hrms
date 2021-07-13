@@ -27,8 +27,8 @@ public class Employee {
 	//private int userId;
 	@Column(name="role_id")
 	private int roleId;
-	@Column(name="is_verified")
-	private boolean isVerified;
+	//@Column(name="is_verified")
+	//private boolean isVerified;
 	@Column(name="first_name")
 	private String firstName;
 	@Column(name="last_name")

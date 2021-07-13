@@ -6,4 +6,5 @@ import project.hrms.entities.concretes.Jobseeker;
 
 public interface JobseekerDao extends JpaRepository<Jobseeker, Integer>{
 	Jobseeker getByTcNo(String tcNo);
+
 }

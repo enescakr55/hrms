@@ -30,17 +30,25 @@ public class RoleManager implements RoleService{
 	@Override
 	public Result add(Role role) {
 		boolean mevcutmu = false;
-		roleDao.save(role);
+		
 		List<Role> roles = this.roleDao.findAll();
 		for (Role rol : roles) {
-			if(rol.getRoleName() == role.getRoleName()) {
+			if(rol.getRoleName().toLowerCase().equals(role.getRoleName().toLowerCase())) {
 				mevcutmu = true;
 			}
 		}
 		if(mevcutmu == true) {
 			return new ErrorResult("Aynı isimde bir rol mevcut");
+		}else {
+			roleDao.save(role);
+			return new SuccessResult("Başarıyla Eklendi");
 		}
-		return new SuccessResult("Başarıyla Eklendi");
+		
+	}
+	@Override
+	public Result delete(int roleId) {
+		roleDao.deleteById(roleId);
+		return new SuccessResult("Rol silindi");
 	}
 
 }

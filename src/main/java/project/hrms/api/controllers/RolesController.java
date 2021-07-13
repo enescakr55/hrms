@@ -3,6 +3,7 @@ package project.hrms.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,8 @@ import project.hrms.entities.concretes.Role;
 
 @RestController
 @RequestMapping("/api/roles")
+@CrossOrigin
+
 public class RolesController {
 	private RoleService roleService;
 	@Autowired
@@ -30,5 +33,9 @@ public class RolesController {
 	@PostMapping("/add")
 	public Result add(@RequestBody Role role) {
 		return roleService.add(role);
+	}
+	@GetMapping("/delete")
+	public Result delete(int roleid) {
+		return roleService.delete(roleid);
 	}
 }

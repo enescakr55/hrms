@@ -2,6 +2,7 @@ package project.hrms.business.concretes;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import project.hrms.core.utilities.results.SuccessResult;
 import project.hrms.dataacess.abstracts.EmployerDao;
 import project.hrms.entities.concretes.Employer;
 import project.hrms.entities.concretes.User;
+import project.hrms.entities.concretes.dtos.EmployerRegister;
 @Service
 public class EmployerManager implements EmployerService{
 	EmployerDao employerDao;
@@ -41,6 +43,13 @@ public class EmployerManager implements EmployerService{
 		return new SuccessResult("Kayıt başarılı");
 
 	}
+	public Result register(EmployerRegister employerRegister) {
+		Result userRegisterResult = userService.add(employerRegister.user);
+		if(userRegisterResult.isSuccess()) {
+			return new SuccessResult(String.valueOf( employerRegister.user.getId()));
+		}
+		return new SuccessResult("Başarısız");
+	}
 	private boolean isEqualsMailDomainAndWebsite(String email,String website) {
 		String mailDomain = email.substring(email.indexOf("@") + 1);
 		if(website.toLowerCase().equals(mailDomain)) {
@@ -48,6 +57,15 @@ public class EmployerManager implements EmployerService{
 		}
 		return false;
 	}
+	@Override
+	public boolean isEmployer(int userId) {
+		Employer employer = employerDao.getByUser_Id(userId);
+		if(employer != null) {
+			return true;
+		}
+		return false;
+	}
+	
 
 
 
