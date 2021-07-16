@@ -34,8 +34,9 @@ public class JobAdvert {
 	@OneToOne()
 	@JoinColumn(name="role_id")
 	private Role role;
-	@Column(name="city_id")
-	private int cityId;
+	@OneToOne()
+	@JoinColumn(name="city_id")
+	private City city;
 	@Column(name="max_salary")
 	private double maxSalary;
 	@Column(name="min_salary")
@@ -48,5 +49,12 @@ public class JobAdvert {
 	private Date lastDate;
 	@Column(name="active")
 	private boolean Active;
+	@OneToOne
+	@JoinColumn(name = "job_time_id")
+	private JobTime jobTime;
+	@OneToOne
+	@JoinColumn(name="job_type_id")
+	private JobType jobType;
+	
 	
 }

@@ -37,6 +37,7 @@ public class EmployersController {
 	}
 	@PostMapping("registeremployer")
 	public Result add(@RequestBody EmployerRegister employerRegister) {
+		employerRegister.setVerified(false);
 		return employerService.register(employerRegister);
 	}
 

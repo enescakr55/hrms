@@ -44,9 +44,23 @@ public class EmployerManager implements EmployerService{
 
 	}
 	public Result register(EmployerRegister employerRegister) {
-		Result userRegisterResult = userService.add(employerRegister.user);
+		if(isEqualsMailDomainAndWebsite(employerRegister.getEmail(), employerRegister.getWebsite()) == false) {
+			return new ErrorResult("E-Posta adresi ve Şirket Websitesi aynı domaine sahip olmalıdır");
+		}
+		User euser = new User() ;
+		euser.setEmail(employerRegister.getEmail());
+		euser.setPassword(employerRegister.getPassword());
+		euser.setVerified(false);
+		Employer eemployer = new Employer();
+		eemployer.setCompanyName(employerRegister.getCompanyName());
+		eemployer.setPhoneNumber(employerRegister.getPhoneNumber());
+		eemployer.setVerified(false);
+		eemployer.setWebsite(employerRegister.getWebsite());
+		Result userRegisterResult = userService.add(euser);
 		if(userRegisterResult.isSuccess()) {
-			return new SuccessResult(String.valueOf( employerRegister.user.getId()));
+			eemployer.setUser(euser);
+			employerDao.save(eemployer);
+			return new SuccessResult("Şirket kaydı başarı ile gerçekleştirildi");
 		}
 		return new SuccessResult("Başarısız");
 	}
