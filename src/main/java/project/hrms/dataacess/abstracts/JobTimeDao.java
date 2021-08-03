@@ -1,0 +1,9 @@
+package project.hrms.dataacess.abstracts;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import project.hrms.entities.concretes.JobTime;
+
+public interface JobTimeDao extends JpaRepository<JobTime, Integer>{
+
+}
