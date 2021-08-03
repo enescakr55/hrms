@@ -61,8 +61,9 @@ public class EmployerManager implements EmployerService{
 			eemployer.setUser(euser);
 			employerDao.save(eemployer);
 			return new SuccessResult("Şirket kaydı başarı ile gerçekleştirildi");
+		}else {
+			return new ErrorResult(userRegisterResult.getMessage());
 		}
-		return new SuccessResult("Başarısız");
 	}
 	private boolean isEqualsMailDomainAndWebsite(String email,String website) {
 		String mailDomain = email.substring(email.indexOf("@") + 1);

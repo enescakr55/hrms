@@ -1,5 +1,6 @@
 package project.hrms.api.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +13,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.hrms.business.abstracts.JobAdvertService;
+import project.hrms.business.abstracts.JobTimeService;
+import project.hrms.business.abstracts.JobTypeService;
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
 import project.hrms.entities.concretes.JobAdvert;
+import project.hrms.entities.concretes.dtos.JobAdvertAddDto;
 @RestController
 @RequestMapping("/api/jobadverts")
 @CrossOrigin
 public class JobAdvertsController {
 	JobAdvertService jobAdvertService;
-
+	JobTimeService jobTimeService;
+	JobTypeService jobTypeService;
 	@Autowired
-	public JobAdvertsController(JobAdvertService jobAdvertService) {
+	public JobAdvertsController(JobAdvertService jobAdvertService,JobTimeService jobTimeService,JobTypeService jobTypeService) {
 		super();
 		this.jobAdvertService = jobAdvertService;
+		this.jobTimeService = jobTimeService;
+		this.jobTypeService = jobTypeService;
 	}
 	@GetMapping("/getall")
 	public DataResult<List<JobAdvert>> getAll(){
@@ -49,6 +56,11 @@ public class JobAdvertsController {
 	@GetMapping("closeAdvert")
 	public Result closeAdvert(@RequestParam int advertId) {
 		return jobAdvertService.closeAdvert(advertId);
+	}
+	@PostMapping("/addwithdto")
+	public Result addWithDto(@RequestBody JobAdvertAddDto jobAdvertAddDto) {
+		jobAdvertAddDto.setLastDate(new Date());
+		return jobAdvertService.addwithdto(jobAdvertAddDto);
 	}
 
 }

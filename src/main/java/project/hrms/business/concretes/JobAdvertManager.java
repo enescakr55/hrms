@@ -11,7 +11,13 @@ import project.hrms.core.utilities.results.Result;
 import project.hrms.core.utilities.results.SuccessDataResult;
 import project.hrms.core.utilities.results.SuccessResult;
 import project.hrms.dataacess.abstracts.JobAdvertDao;
+import project.hrms.entities.concretes.City;
+import project.hrms.entities.concretes.Employer;
 import project.hrms.entities.concretes.JobAdvert;
+import project.hrms.entities.concretes.JobTime;
+import project.hrms.entities.concretes.JobType;
+import project.hrms.entities.concretes.Role;
+import project.hrms.entities.concretes.dtos.JobAdvertAddDto;
 
 @Service
 public class JobAdvertManager implements JobAdvertService{
@@ -53,6 +59,21 @@ public class JobAdvertManager implements JobAdvertService{
 	public DataResult<List<JobAdvert>> getIsActiveOrderByDate() {
 		return new SuccessDataResult<List<JobAdvert>>(jobAdvertDao.getByActiveTrueOrderByDate());
 	}
+
+	@Override
+	public Result addwithdto(JobAdvertAddDto jobAdvertAddDto) {
+		// TODO Auto-generated method stub
+		Employer employer = new Employer(); employer.setEmployerid(jobAdvertAddDto.getEmployerid());
+		City city = new City(); city.setCityId(jobAdvertAddDto.getCityId());
+		Role role = new Role(); role.setId(jobAdvertAddDto.getRoleId());
+		JobTime jobTime = new JobTime(); jobTime.setJobTimeId(jobAdvertAddDto.getJobTimeId());
+		JobType jobType = new JobType(); jobType.setJobTypeId(jobAdvertAddDto.getJobTypeId());
+		JobAdvert jobAdvert = new JobAdvert(0, employer, role, city, jobAdvertAddDto.getMaxSalary(), jobAdvertAddDto.getMinSalary(), jobAdvertAddDto.getDescription(), jobAdvertAddDto.getOpenPositionNumber(), jobAdvertAddDto.getLastDate(), false, jobTime, jobType);
+		jobAdvertDao.save(jobAdvert);
+		return new SuccessResult("İş ilanı eklendi");
+	}
+
+	
 
 
 	
