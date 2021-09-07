@@ -39,11 +39,16 @@ public class JobAdvertsController {
 	}
 	@PostMapping("/add")
 	public Result add(@RequestBody JobAdvert jobAdvert) {
+		jobAdvert.setActive(false);
 		return jobAdvertService.add(jobAdvert);
 	}
 	@GetMapping("getisactive")
 	public DataResult<List<JobAdvert>> getIsActive(){
 		return jobAdvertService.getIsActive();
+	}
+	@GetMapping("getisnotactive")
+	public DataResult<List<JobAdvert>> getIsNotActive(){
+		return jobAdvertService.getIsNotActive();
 	}
 	@GetMapping("getisactiveorderbydate")
 	public DataResult<List<JobAdvert>> getIsActiveOrderByDate(){

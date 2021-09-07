@@ -12,6 +12,9 @@ public interface JobAdvertDao extends JpaRepository<JobAdvert,Integer>{
 	@Query("From JobAdvert where active=true")
 	List<JobAdvert> getByActiveTrue();
 	
+	@Query("From JobAdvert where active=false")
+	List<JobAdvert> getByActiveFalse();
+	
 	@Query("From JobAdvert where active=true order by lastDate desc")
 	List<JobAdvert> getByActiveTrueOrderByDate();
 	

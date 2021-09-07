@@ -45,6 +45,10 @@ public class JobAdvertManager implements JobAdvertService{
 		return new SuccessDataResult<List<JobAdvert>>(jobAdvertDao.getByActiveTrue());
 	}
 	@Override
+	public DataResult<List<JobAdvert>> getIsNotActive() {
+		return new SuccessDataResult<List<JobAdvert>>(jobAdvertDao.getByActiveFalse());
+	}
+	@Override
 	public DataResult<List<JobAdvert>> getByEmployerId(int employerId) {
 		return new SuccessDataResult<List<JobAdvert>>(jobAdvertDao.getByEmployerId(employerId));
 		

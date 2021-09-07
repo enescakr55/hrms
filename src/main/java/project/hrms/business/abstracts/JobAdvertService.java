@@ -11,6 +11,7 @@ public interface JobAdvertService {
 	DataResult<List<JobAdvert>> getAll();
 	Result add(JobAdvert jobAdvert);
 	DataResult<List<JobAdvert>> getIsActive();
+	DataResult<List<JobAdvert>> getIsNotActive();
 	DataResult<List<JobAdvert>> getIsActiveOrderByDate();
 	DataResult<List<JobAdvert>> getByEmployerId(int employerId);
 	Result closeAdvert(int advertId);
