@@ -1,8 +1,12 @@
 package project.hrms.api.controllers;
 
+import java.net.http.HttpRequest;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,9 +63,15 @@ public class AuthController {
         return token;
     }
     @GetMapping("/renewtoken")
-    public String renewToken() {
-    	
-		return null;
+    public DataResult<TokenResult> renewToken(@RequestHeader("Authorization") String lang) {
+    	String currenttoken = lang.split(" ")[1];
+    	final String username = jwtUtil.extractUsername(currenttoken);
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        final String jwt = jwtUtil.generateToken(userDetails);
+        final Date expiration = jwtUtil.extractExpiration(jwt);
+        final User userInfo = userService.getByEmail(username).getData();
+        DataResult<TokenResult> token = new DataResult<TokenResult>(new TokenResult(jwt,expiration, "type", userInfo.getEmail(), false), true);
+    	return token;
     	
     }
 

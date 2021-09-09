@@ -3,6 +3,8 @@ package project.hrms.business.services.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +58,7 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims)
                 .setSubject(subject) // ilgili kullanıcı
+                .claim(subject, subject) 
                 .setIssuedAt(new Date(System.currentTimeMillis())) // başlangıç
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime)) // bitiş
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY) // kullanılan algoritma ve bu algoritma çalışırken kullanılacak hash key değeri
