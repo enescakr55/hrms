@@ -14,6 +14,7 @@ import project.hrms.business.abstracts.JobseekerService;
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
 import project.hrms.entities.concretes.Jobseeker;
+import project.hrms.entities.concretes.dtos.JobseekerRegisterDto;
 
 @RestController
 @RequestMapping("/api/jobseekers")
@@ -33,6 +34,10 @@ public class JobseekersController {
 	@PostMapping("/add")
 	public Result add(@RequestBody Jobseeker jobseeker) {
 		return jobseekerService.add(jobseeker);
+	}
+	@PostMapping("/registerjobseeker")
+	public Result jobseekerRegister(@RequestBody JobseekerRegisterDto jobseekerRegisterDto) {
+		return jobseekerService.jobseekerRegister(jobseekerRegisterDto);
 	}
 	
 }

@@ -3,6 +3,7 @@ package project.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import project.hrms.business.abstracts.RoleService;
@@ -23,10 +24,12 @@ public class RoleManager implements RoleService{
 		super();
 		this.roleDao = roleDao;
 	}
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public DataResult<List<Role>> getAll() {
 		return new SuccessDataResult<List<Role>>(this.roleDao.findAll(),"Roller listelendi");
 	}
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public Result add(Role role) {
 		boolean mevcutmu = false;
@@ -45,6 +48,7 @@ public class RoleManager implements RoleService{
 		}
 		
 	}
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public Result delete(int roleId) {
 		roleDao.deleteById(roleId);

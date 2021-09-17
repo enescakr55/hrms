@@ -9,5 +9,6 @@ import project.hrms.entities.concretes.Employee;
 public interface EmployeeService {
 	DataResult<List<Employee>> getAll();
 	Result add(Employee employee);
-
+	DataResult<Employee> getById(int id);
+	boolean isEmployee(int userId);
 }

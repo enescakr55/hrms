@@ -16,4 +16,6 @@ public interface JobAdvertService {
 	DataResult<List<JobAdvert>> getByEmployerId(int employerId);
 	Result closeAdvert(int advertId);
 	Result addwithdto(JobAdvertAddDto jobAdvertAddDto);
+	Result jobAdvertApprove(JobAdvert jobadvert);
+	DataResult<JobAdvert> getByAdvertId(int advertId);
 }

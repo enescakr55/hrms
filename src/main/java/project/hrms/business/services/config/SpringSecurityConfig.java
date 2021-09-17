@@ -46,17 +46,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     	"/api/jobseekers/getall",
     	"/api/jobadverts/getisactive",
     	"/api/cities/getall",
+    	"/api/employers/getall",
+    	"/api/jobseekers/registerjobseeker",
+    	"/swagger-ui.html",
 
     			
     	};
-    	//http.authorizeRequests().antMatchers("/api/employers/getall").access("hasRole('Manager')");
+    	//http.authorizeRequests().antMatchers("").access("hasRole('Manager')");
     	http.cors();
+    	//antMatchers(antMatcherList)
         http.csrf().disable()
-                .authorizeRequests().antMatchers(antMatcherList).permitAll()
+                .authorizeRequests().antMatchers("**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+       http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

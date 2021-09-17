@@ -42,6 +42,10 @@ public class EmployersController {
 		employerRegister.setVerified(false);
 		return employerService.register(employerRegister);
 	}
+	@GetMapping("/isemployer")
+	public boolean isEmployer(int userid) {
+		return employerService.isEmployer(userid);
+	}
 
 	
 	

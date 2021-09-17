@@ -3,6 +3,7 @@ package project.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import project.hrms.business.abstracts.JobTypeService;
@@ -20,18 +21,19 @@ public class JobTypeManager implements JobTypeService{
 		super();
 		this.jobTypeDao = jobTypeDao;
 	}
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public Result add(JobType jobType) {
 		jobTypeDao.save(jobType);
 		return new SuccessResult("Başarıyla Eklendi");
 	}
-
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public Result update(JobType jobType) {
 		jobTypeDao.save(jobType);
 		return new SuccessResult("Başarıyla Güncellendi");
 	}
-
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public Result delete(int jobTypeId) {
 		jobTypeDao.delete(jobTypeDao.getOne(jobTypeId));

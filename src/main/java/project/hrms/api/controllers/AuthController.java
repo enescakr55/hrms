@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import project.hrms.business.abstracts.UserService;
+import project.hrms.business.abstracts.UserTypeService;
 import project.hrms.business.services.CustomUserDetailsService;
 import project.hrms.business.services.config.JwtUtil;
 import project.hrms.core.entities.AuthRequest;
@@ -37,17 +38,27 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     private CustomUserDetailsService userDetailsService;
     private UserService userService;
+    private UserTypeService userTypeService;
     
     @Autowired
 	public AuthController(JwtUtil jwtUtil, AuthenticationManager authenticationManager,
-			CustomUserDetailsService userDetailsService, UserService userService) {
+			CustomUserDetailsService userDetailsService, UserService userService,UserTypeService userTypeService) {
 		super();
 		this.jwtUtil = jwtUtil;
 		this.authenticationManager = authenticationManager;
 		this.userDetailsService = userDetailsService;
 		this.userService = userService;
+		this.userTypeService = userTypeService;
 	}
-	
+	public DataResult<TokenResult> tokenCreator(String username){
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        final String jwt = jwtUtil.generateToken(userDetails);
+        final Date expiration = jwtUtil.extractExpiration(jwt);
+        final User userInfo = userService.getByEmail(username).getData();
+        final String userType = userTypeService.getUserType(userInfo.getId()).getData();
+        DataResult<TokenResult> token = new DataResult<TokenResult>(new TokenResult(jwt,expiration, userType, userInfo.getEmail(), false), true);
+    	return token;
+	}
     @PostMapping("/login")
     public DataResult<TokenResult> creteToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {
@@ -55,23 +66,13 @@ public class AuthController {
         } catch (BadCredentialsException ex) {
             throw new Exception("Kullanıcı adı veya şifre yanlış", ex);
         }
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails);
-        final Date expiration = jwtUtil.extractExpiration(jwt);
-        final User userInfo = userService.getByEmail(authRequest.getUsername()).getData();
-        DataResult<TokenResult> token = new DataResult<TokenResult>(new TokenResult(jwt,expiration, "type", userInfo.getEmail(), false), true);
-        return token;
+        return tokenCreator(authRequest.getUsername());
     }
     @GetMapping("/renewtoken")
     public DataResult<TokenResult> renewToken(@RequestHeader("Authorization") String lang) {
     	String currenttoken = lang.split(" ")[1];
     	final String username = jwtUtil.extractUsername(currenttoken);
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        final String jwt = jwtUtil.generateToken(userDetails);
-        final Date expiration = jwtUtil.extractExpiration(jwt);
-        final User userInfo = userService.getByEmail(username).getData();
-        DataResult<TokenResult> token = new DataResult<TokenResult>(new TokenResult(jwt,expiration, "type", userInfo.getEmail(), false), true);
-    	return token;
+    	return tokenCreator(username);
     	
     }
 

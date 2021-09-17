@@ -3,6 +3,7 @@ package project.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import project.hrms.business.abstracts.JobTimeService;
@@ -20,18 +21,19 @@ public class JobTimeManager implements JobTimeService{
 		super();
 		this.jobTimeDao = jobTimeDao;
 	}
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public Result add(JobTime jobTime) {
 		jobTimeDao.save(jobTime);
 		return new SuccessResult("Başarıyla Eklendi");
 	}
-
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public Result delete(int jobTimeId) {
 		jobTimeDao.delete(jobTimeDao.getOne(jobTimeId));
 		return new SuccessResult("Başarıyla Silindi");
 	}
-
+	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public Result update(JobTime jobTime) {
 		jobTimeDao.save(jobTime);

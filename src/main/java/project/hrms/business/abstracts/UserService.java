@@ -12,4 +12,5 @@ public interface UserService {
 	DataResult<User> getByEmail(String email);
 	DataResult<User> getById(int id);
 	Result verifyUser(int userId);
+	Result delete(User user);
 }

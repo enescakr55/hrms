@@ -33,6 +33,22 @@ public class EmployeeManager implements EmployeeService{
 		return new SuccessResult("Kayıt başarılı");
 	}
 
+	@Override
+	public boolean isEmployee(int userId) {
+		Employee employee = employeeDao.getByUser_Id(userId);
+		if(employee != null) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public DataResult<Employee> getById(int id) {
+
+		return new SuccessDataResult<Employee>(employeeDao.getByUser_Id(id));
+	}
+	
+
 	
 
 

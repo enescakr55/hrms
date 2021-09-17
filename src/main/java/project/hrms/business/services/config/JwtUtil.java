@@ -22,20 +22,19 @@ public class JwtUtil {
 
     // verilen token a ait kullanıcı adını döndürür.
     public String extractUsername(String token) {
-    	System.out.println(extractClaim(token, Claims::getSubject));
+    	System.out.println(extractClaim(token, Claims::getSubject)+" "+"--> Kullanıcı sisteme başarıyla giriş yaptı");
+    	System.out.println(extractClaim(token, Claims::getSubject)+" "+" "+"--> Kullanıcıya token atandı");
         return extractClaim(token, Claims::getSubject);
     }
 
     // verilen token a ait token bitiş süresini verir.
     public Date extractExpiration(String token) {
-    	System.out.println(Claims.EXPIRATION);
-    	System.out.println(extractClaim(token, Claims::getExpiration));
         return extractClaim(token, Claims::getExpiration);
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
-        System.out.println(claims);
+        //System.out.println(claims);
         return claimsResolver.apply(claims);
     }
 

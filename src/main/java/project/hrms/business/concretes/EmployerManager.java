@@ -81,6 +81,11 @@ public class EmployerManager implements EmployerService{
 		}
 		return false;
 	}
+	@Override
+	public DataResult<Employer> getById(int id) {
+		
+		return new SuccessDataResult<Employer>(employerDao.getByUser_Id(id));
+	}
 	
 
 
