@@ -60,6 +60,7 @@ public class UserManager implements UserService{
 			return new ErrorResult("Kullanıcı doğrulanamadı");
 		}
 	}
+	
 	@Override
 	public Result delete(User user) {
 		userDao.delete(user);
