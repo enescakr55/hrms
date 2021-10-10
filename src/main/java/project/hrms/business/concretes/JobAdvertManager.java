@@ -3,9 +3,11 @@ package project.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import project.hrms.business.abstracts.JobAdvertService;
+import project.hrms.business.abstracts.JobApplyService;
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
 import project.hrms.core.utilities.results.SuccessDataResult;
@@ -22,6 +24,7 @@ import project.hrms.entities.concretes.dtos.JobAdvertAddDto;
 @Service
 public class JobAdvertManager implements JobAdvertService{
 	JobAdvertDao jobAdvertDao;
+	JobApplyService jobApplyService;
 	
 	@Autowired
 	public JobAdvertManager(JobAdvertDao jobAdvertDao) {
@@ -77,6 +80,7 @@ public class JobAdvertManager implements JobAdvertService{
 		return new SuccessResult("İş ilanı eklendi");
 	}
 	@Override
+	@PreAuthorize("hasRole('Admin')")
 	public Result jobAdvertApprove(JobAdvert jobadvert) {
 		jobadvert.setActive(true);
 		jobAdvertDao.save(jobadvert);

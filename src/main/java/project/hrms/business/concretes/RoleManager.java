@@ -24,7 +24,6 @@ public class RoleManager implements RoleService{
 		super();
 		this.roleDao = roleDao;
 	}
-	@PreAuthorize("hasRole('Admin')")
 	@Override
 	public DataResult<List<Role>> getAll() {
 		return new SuccessDataResult<List<Role>>(this.roleDao.findAll(),"Roller listelendi");

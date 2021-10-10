@@ -135,7 +135,7 @@ public class JobAdvertsController {
     	User user = userService.getByEmail(mail).getData();
     	return favoriteJobAdvertsService.getJobAdvertsWithUserId(user.getId());
 	}
-	@GetMapping("getmyjobadverts")
+	@GetMapping("/getmyjobadverts")
 	public DataResult<List<JobAdvert>> getMyJobAdverts(@RequestHeader("Authorization") String token){
     	String currenttoken = token.split(" ")[1];
     	final String mail = jwtUtil.extractUsername(currenttoken);

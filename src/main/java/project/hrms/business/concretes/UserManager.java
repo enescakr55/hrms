@@ -3,6 +3,10 @@ package project.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import project.hrms.business.abstracts.EmployeeService;
@@ -34,6 +38,7 @@ public class UserManager implements UserService{
 		if(userDao.getByEmail(user.getEmail()) != null ) {
 			return new ErrorResult("Bu e posta adresi zaten kayıtlı");
 		}
+		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		userDao.save(user);
 		return new SuccessResult("Başarıyla Eklendi");
 	}

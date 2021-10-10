@@ -9,7 +9,7 @@ import project.hrms.entities.concretes.cv.Description;
 public interface DescriptionService {
 	public Result add(Description description);
 	public Result delete(Description description);
-	public DataResult<Description> getByUserId(int userId);
+	public DataResult<Description> getByJobseekerId(int jobseekerId);
 	public DataResult<List<Description>> getAll();
-	public Result Update(Description description);
+	public Result update(Description description);
 }

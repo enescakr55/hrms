@@ -22,8 +22,8 @@ public class JwtUtil {
 
     // verilen token a ait kullanıcı adını döndürür.
     public String extractUsername(String token) {
-    	System.out.println(extractClaim(token, Claims::getSubject)+" "+"--> Kullanıcı sisteme başarıyla giriş yaptı");
-    	System.out.println(extractClaim(token, Claims::getSubject)+" "+" "+"--> Kullanıcıya token atandı");
+    	//System.out.println(extractClaim(token, Claims::getSubject)+" "+"--> Kullanıcı sisteme başarıyla giriş yaptı");
+    	//System.out.println(extractClaim(token, Claims::getSubject)+" "+" "+"--> Kullanıcıya token atandı");
         return extractClaim(token, Claims::getSubject);
     }
 
