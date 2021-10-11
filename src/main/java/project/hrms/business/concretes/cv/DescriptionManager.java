@@ -2,6 +2,7 @@ package project.hrms.business.concretes.cv;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.hrms.business.abstracts.cv.DescriptionService;
@@ -15,6 +16,7 @@ import project.hrms.entities.concretes.cv.Description;
 public class DescriptionManager implements DescriptionService{
 	
 	DescriptionDao descriptionDao;
+	@Autowired
 	public DescriptionManager(DescriptionDao descriptionDao) {
 		// TODO Auto-generated constructor stub
 		super();

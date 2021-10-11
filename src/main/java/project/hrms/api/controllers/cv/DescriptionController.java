@@ -2,6 +2,7 @@ package project.hrms.api.controllers.cv;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import project.hrms.entities.concretes.cv.Description;
 @RequestMapping("/api/descriptions")
 public class DescriptionController {
 	DescriptionService descriptionService;
+	@Autowired
 	public DescriptionController(DescriptionService descriptionService) {
 		// TODO Auto-generated constructor stub
 		super();
@@ -26,8 +28,8 @@ public class DescriptionController {
 		return descriptionService.add(description);
 	}
 	@GetMapping("/getbyjobseekerid")
-	public DataResult<Description> getByJobseekerId(int jobseekerId){
-		return descriptionService.getByJobseekerId(jobseekerId);
+	public DataResult<Description> getByJobseekerId(int jobseekerid){
+		return descriptionService.getByJobseekerId(jobseekerid);
 	}
 	@GetMapping("/getall")
 	public DataResult<List<Description>> getAll(){
