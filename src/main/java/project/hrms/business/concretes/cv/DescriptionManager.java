@@ -2,9 +2,14 @@ package project.hrms.business.concretes.cv;
 
 import java.util.List;
 
+import javax.security.auth.login.AccountExpiredException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import io.swagger.annotations.Authorization;
 import project.hrms.business.abstracts.cv.DescriptionService;
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
@@ -37,15 +42,22 @@ public class DescriptionManager implements DescriptionService{
 
 	@Override
 	public DataResult<Description> getByJobseekerId(int jobseekerId) {
-		return new SuccessDataResult<Description>(descriptionDao.getByJobseeker(jobseekerId));
+		return new SuccessDataResult<Description>(descriptionDao.getByJobseeker_JobseekerId(jobseekerId));
 		}
 
 	@Override
 	public DataResult<List<Description>> getAll() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		System.out.println(authentication);
+		System.out.println("asdqwerty");
+		System.out.println(authentication.getName());
+		System.out.println(authentication.getAuthorities());
 		return new SuccessDataResult<List<Description>>(descriptionDao.findAll());
 	}
 
 	@Override
+	
 	public Result update(Description description) {
 		descriptionDao.save(description);
 		return new SuccessResult();

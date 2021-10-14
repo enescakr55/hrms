@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import project.hrms.business.abstracts.GetAuthenticatedUserService;
 import project.hrms.business.abstracts.UserService;
 import project.hrms.business.abstracts.UserTypeService;
 import project.hrms.business.services.CustomUserDetailsService;
@@ -39,16 +40,18 @@ public class AuthController {
     private CustomUserDetailsService userDetailsService;
     private UserService userService;
     private UserTypeService userTypeService;
+    private GetAuthenticatedUserService getAuthenticatedUserService;
     
     @Autowired
 	public AuthController(JwtUtil jwtUtil, AuthenticationManager authenticationManager,
-			CustomUserDetailsService userDetailsService, UserService userService,UserTypeService userTypeService) {
+			CustomUserDetailsService userDetailsService, UserService userService,UserTypeService userTypeService,GetAuthenticatedUserService getAuthenticatedUserService) {
 		super();
 		this.jwtUtil = jwtUtil;
 		this.authenticationManager = authenticationManager;
 		this.userDetailsService = userDetailsService;
 		this.userService = userService;
 		this.userTypeService = userTypeService;
+		this.getAuthenticatedUserService = getAuthenticatedUserService;
 	}
 	public DataResult<TokenResult> tokenCreator(String username){
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -74,6 +77,10 @@ public class AuthController {
     	final String username = jwtUtil.extractUsername(currenttoken);
     	return tokenCreator(username);
     	
+    }
+    @GetMapping("/me")
+    public DataResult<User> getCurrentUser(){
+    	return getAuthenticatedUserService.getUser();
     }
 
 

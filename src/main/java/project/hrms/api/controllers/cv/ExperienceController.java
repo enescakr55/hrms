@@ -3,6 +3,7 @@ package project.hrms.api.controllers.cv;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,7 @@ import project.hrms.core.utilities.results.Result;
 import project.hrms.core.utilities.results.SuccessDataResult;
 import project.hrms.entities.concretes.cv.Description;
 import project.hrms.entities.concretes.cv.Experience;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/experiences")
 	

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +25,7 @@ public class Jobseeker {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int jobseekerId;
-	//@Column(name="user_id")
-	//private int userId;
+	@JsonIgnore
 	@Column(name="tc_no")
 	private String tcNo;
 	@Column(name="first_name")

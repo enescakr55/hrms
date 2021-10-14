@@ -1,10 +1,13 @@
 package project.hrms.api.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.internal.util.beans.BeanInfoHelper.ReturningBeanInfoDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sun.el.parser.ParseException;
 
 import project.hrms.business.abstracts.EmployeeService;
 import project.hrms.business.abstracts.EmployerService;
@@ -85,9 +90,18 @@ public class JobAdvertsController {
 	public Result closeAdvert(@RequestParam int advertId) {
 		return jobAdvertService.closeAdvert(advertId);
 	}
+	public static Date parseDateTime(String dateString) throws java.text.ParseException {
+	    if (dateString == null) return null;
+	    DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
+	    if (dateString.contains("T")) dateString = dateString.replace('T', ' ');
+	    if (dateString.contains("Z")) dateString = dateString.replace("Z", "+0000");
+	    else
+	        dateString = dateString.substring(0, dateString.lastIndexOf(':')) + dateString.substring(dateString.lastIndexOf(':')+1);
+	    return fmt.parse(dateString);
+	}
+	@PreAuthorize("hasRole('Admin')")
 	@PostMapping("/addwithdto")
 	public Result addWithDto(@RequestBody JobAdvertAddDto jobAdvertAddDto) {
-		jobAdvertAddDto.setLastDate(new Date());
 		return jobAdvertService.addwithdto(jobAdvertAddDto);
 	}
 	@PostMapping("jobadvertapprove")

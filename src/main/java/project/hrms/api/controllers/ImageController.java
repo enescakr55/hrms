@@ -60,5 +60,9 @@ public class ImageController {
 		User usr = userService.getByEmail(email).getData();
 		return imageUploadService.getMyProfilePicture(usr);
 	}
+	@GetMapping("/getprofilepicturebyuserid")
+	public DataResult<ProfileImage> getProfileImageByUserId(int userid){
+		return imageUploadService.getProfilePictureByUserId(userid);
+	}
 
 }

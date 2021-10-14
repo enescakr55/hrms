@@ -48,6 +48,7 @@ public class JobAdvertManager implements JobAdvertService{
 		return new SuccessDataResult<List<JobAdvert>>(jobAdvertDao.getByActiveTrue());
 	}
 	@Override
+	@PreAuthorize("hasRole('Admin')")
 	public DataResult<List<JobAdvert>> getIsNotActive() {
 		return new SuccessDataResult<List<JobAdvert>>(jobAdvertDao.getByActiveFalse());
 	}

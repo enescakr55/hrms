@@ -39,5 +39,9 @@ public class JobseekersController {
 	public Result jobseekerRegister(@RequestBody JobseekerRegisterDto jobseekerRegisterDto) {
 		return jobseekerService.jobseekerRegister(jobseekerRegisterDto);
 	}
+	@GetMapping("/getjobseekerbyuserid")
+	public DataResult<Jobseeker> getJobseekerByUserId(int userid){
+		return jobseekerService.getById(userid);
+	}
 	
 }
