@@ -16,5 +16,6 @@ public class JobseekerRegisterDto {
 	private String lastName;
 	private String tcNo;
 	private String birthYear;
+	private String phoneNumber;
 	private User user;
 }

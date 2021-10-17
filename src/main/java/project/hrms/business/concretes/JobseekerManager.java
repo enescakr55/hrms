@@ -77,6 +77,7 @@ public class JobseekerManager implements JobseekerService{
 		newJobseeker.setFirstName(jobseekerRegister.getFirstName());
 		newJobseeker.setLastName(jobseekerRegister.getLastName());
 		newJobseeker.setTcNo(jobseekerRegister.getTcNo());
+		newJobseeker.setPhoneNumber(jobseekerRegister.getPhoneNumber());
 		Result userAdd = userService.add(newUser);
 		if(userAdd.isSuccess()) {
 			newJobseeker.setUser(newUser);

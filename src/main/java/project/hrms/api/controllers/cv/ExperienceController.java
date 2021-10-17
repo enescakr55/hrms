@@ -16,6 +16,7 @@ import project.hrms.core.utilities.results.Result;
 import project.hrms.core.utilities.results.SuccessDataResult;
 import project.hrms.entities.concretes.cv.Description;
 import project.hrms.entities.concretes.cv.Experience;
+import project.hrms.entities.concretes.dtos.ExperienceAddDto;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/experiences")
@@ -38,8 +39,25 @@ public class ExperienceController {
 	public DataResult<List<Experience>> getByJobseekerId(int jobseekerid){
 		return experienceService.getByJobseekerId(jobseekerid);
 	}
+	@GetMapping("/getbyuserid")
+	public DataResult<List<Experience>> getByUserId(int userid){
+		return experienceService.getByUserId(userid);
+	}
 	@GetMapping("/getall")
 	public DataResult<List<Experience>> getAll(){
 		return experienceService.getAll();
+	}
+	@PostMapping("/delete")
+	public Result delete(@RequestBody Experience experience) {
+		return experienceService.delete(experience);
+	}
+	@GetMapping("/deletemyexperience")
+	public Result deleteMyExperience(int experienceid) {
+		return experienceService.deleteMyExperience(experienceid);
+	}
+	@PostMapping("/addmyexperience")
+	public Result addMyExperience(@RequestBody ExperienceAddDto experience) {
+
+		return experienceService.addMyExperience(experience);
 	}
 }

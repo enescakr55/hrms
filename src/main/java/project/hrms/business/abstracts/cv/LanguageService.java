@@ -12,5 +12,8 @@ public interface LanguageService {
 	public Result delete(Language language);
 	public DataResult<List<Language>> getByJobseekerId(int jobseekerId);
 	public DataResult<List<Language>> getAll();
+	public DataResult<List<Language>> getByUserId(int userid);
 	public Result update(Language language);
+	public Result addMyLanguage(Language language);
+	public Result deleteMyLanguage(int languageId);
 }

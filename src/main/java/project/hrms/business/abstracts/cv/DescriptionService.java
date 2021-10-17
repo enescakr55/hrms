@@ -12,4 +12,5 @@ public interface DescriptionService {
 	public DataResult<Description> getByJobseekerId(int jobseekerId);
 	public DataResult<List<Description>> getAll();
 	public Result update(Description description);
+	public Result updateMyDescription(Description description);
 }

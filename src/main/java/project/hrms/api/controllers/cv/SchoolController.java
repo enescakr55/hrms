@@ -41,6 +41,17 @@ public class SchoolController {
 	public DataResult<List<School>> getByJobseekerId(int jobseekerid) {
 		return schoolService.getByJobseekerId(jobseekerid);
 	}
-	
+	@GetMapping("getbyuserid")
+	public DataResult<List<School>> getByUserId(int userid){
+		return schoolService.getByUserId(userid);
+	}
+	@PostMapping("addmyschool")
+	public Result addMySchool(@RequestBody School school) {
+		return schoolService.addMySchool(school);
+	}
+	@GetMapping("deletemyschool")
+	public Result deleteMySchool(int schoolid) {
+		return schoolService.deleteMySchool(schoolid);
+	}
 	
 }

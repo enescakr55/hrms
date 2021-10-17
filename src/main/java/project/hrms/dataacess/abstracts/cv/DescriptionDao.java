@@ -6,4 +6,5 @@ import project.hrms.entities.concretes.cv.Description;
 
 public interface DescriptionDao extends JpaRepository<Description, Integer>{
 	Description getByJobseeker_JobseekerId(int jobseekerId);
+	
 }

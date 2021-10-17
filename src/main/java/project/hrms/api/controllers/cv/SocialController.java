@@ -41,4 +41,8 @@ public class SocialController {
 	public DataResult<List<Social>> getByJobseekerId(int jobseekerid){
 		return socialService.getByJobseekerId(jobseekerid);
 	}
+	@GetMapping("/getbyuserid")
+	public DataResult<List<Social>> getByUserId(int userid){
+		return socialService.getByUserId(userid);
+	}
 }

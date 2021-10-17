@@ -53,5 +53,9 @@ public class RoleManager implements RoleService{
 		roleDao.deleteById(roleId);
 		return new SuccessResult("Rol silindi");
 	}
+	@Override
+	public DataResult<Role> getRoleByRoleId(int roleId) {
+		return new SuccessDataResult<Role>(roleDao.getById(roleId));
+	}
 
 }

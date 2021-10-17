@@ -34,6 +34,8 @@ public class Jobseeker {
 	private String lastName;
 	@Column(name="birth_year")
 	private String birthYear;
+	@Column(name="phone_number")
+	private String phoneNumber;
 	
 	@OneToOne()
 	@JoinColumn(name="user_id")

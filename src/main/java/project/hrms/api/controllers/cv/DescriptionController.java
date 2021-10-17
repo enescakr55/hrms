@@ -53,4 +53,10 @@ public class DescriptionController {
 	public Result delete(@RequestBody Description description) {
 		return descriptionService.delete(description);
 	}
+	@PostMapping("/updatemydescription")
+	public Result updateMyDescription(@RequestBody Description description) {
+		System.out.println("Açıklama Oku");
+		System.out.println(description);
+		return descriptionService.updateMyDescription(description);
+	}
 }

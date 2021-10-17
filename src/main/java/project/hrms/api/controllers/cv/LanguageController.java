@@ -35,10 +35,25 @@ public class LanguageController {
 	public DataResult<List<Language>> getByJobseekerId(int jobseekerid){
 		return languageService.getByJobseekerId(jobseekerid);
 	}
+	@GetMapping("/getall")
 	public DataResult<List<Language>> getAll(){
 		return languageService.getAll();
 	}
-	public Result delete(Language language) {
+	@PostMapping("/delete")
+	public Result delete(@RequestBody Language language) {
 		return languageService.delete(language);
 	}
+	@GetMapping("/getbyuserid")
+	public DataResult<List<Language>> getByUserId(int userid){
+		return languageService.getByUserId(userid);
+	}
+	@PostMapping("/addmylanguage")
+	public Result addMyLanguage(@RequestBody Language language) {
+		return languageService.addMyLanguage(language);
+	}
+	@GetMapping("/deletemylanguage")
+	public Result deleteMyLanguage(int languageid) {
+		return languageService.deleteMyLanguage(languageid);
+	}
+	
 }

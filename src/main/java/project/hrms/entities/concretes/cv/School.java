@@ -38,10 +38,10 @@ public class School {
 	@Column(name="department_name")
 	private String departmentName;
 	@Column(name="start_year")
-	private int startYear;
+	private String startYear;
 	@Column(name="graduation_year")
 	@Nullable
-	private int graduationYear;
+	private String graduationYear;
 	
 	
 }

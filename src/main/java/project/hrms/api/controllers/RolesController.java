@@ -38,4 +38,8 @@ public class RolesController {
 	public Result delete(int roleid) {
 		return roleService.delete(roleid);
 	}
+	@GetMapping("/getrolebyid")
+	public DataResult<Role> getRoleById(int roleid){
+		return roleService.getRoleByRoleId(roleid);
+	}
 }

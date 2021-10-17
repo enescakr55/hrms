@@ -10,4 +10,5 @@ public interface RoleService {
 	DataResult<List<Role>> getAll();
 	Result add(Role role);
 	Result delete(int roleId);
+	DataResult<Role> getRoleByRoleId(int roleId);
 }
