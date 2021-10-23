@@ -23,9 +23,9 @@ public class MailController {
 		super();
 		this.mailVerify = mailVerify;
 	}
-	@PostMapping("/send")
-	public Result SendVerifyMail(@RequestBody User user) {
-		return mailVerify.SendVerificationCode(user);
+	@GetMapping("/send")
+	public Result SendVerifyMail(String email) {
+		return mailVerify.SendVerificationCode(email);
 	}
 	@GetMapping("/verify")
 	public Result VerifyAccount(String verifyCode) {

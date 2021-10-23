@@ -15,6 +15,7 @@ import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
 import project.hrms.entities.concretes.Jobseeker;
 import project.hrms.entities.concretes.dtos.JobseekerRegisterDto;
+import project.hrms.entities.concretes.dtos.JobseekersListDto;
 
 @RestController
 @RequestMapping("/api/jobseekers")
@@ -42,6 +43,14 @@ public class JobseekersController {
 	@GetMapping("/getjobseekerbyuserid")
 	public DataResult<Jobseeker> getJobseekerByUserId(int userid){
 		return jobseekerService.getById(userid);
+	}
+	@GetMapping("/getalljobseekerdetails")
+	public DataResult<List<JobseekersListDto>> getAllJobseekerDetails(){
+		return jobseekerService.getAllJobseekerDetails();
+	}
+	@GetMapping("/getjobseekerdetailsifjobapply")
+	public DataResult<List<JobseekersListDto>> getJobseekerDetailsIfJobApply(int jobadvertid){
+		return jobseekerService.getJobseekersIfJobAdvertApply(jobadvertid);
 	}
 	
 }

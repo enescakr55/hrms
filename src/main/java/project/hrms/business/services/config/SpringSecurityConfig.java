@@ -53,6 +53,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     	"/api/employers/getall",
     	"/api/jobseekers/registerjobseeker",
     	"/swagger-ui.html",
+    	"/api/mail/send",
+    	"/api/mail/verify"
 
     			
     	};

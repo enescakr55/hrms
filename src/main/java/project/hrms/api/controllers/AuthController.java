@@ -29,6 +29,7 @@ import project.hrms.business.services.config.JwtUtil;
 import project.hrms.core.entities.AuthRequest;
 import project.hrms.core.entities.TokenResult;
 import project.hrms.core.utilities.results.DataResult;
+import project.hrms.core.utilities.results.ErrorDataResult;
 import project.hrms.entities.concretes.User;
 
 @RestController
@@ -69,7 +70,13 @@ public class AuthController {
         } catch (BadCredentialsException ex) {
             throw new Exception("Kullanıcı adı veya şifre yanlış", ex);
         }
-        return tokenCreator(authRequest.getUsername());
+        User user = userService.getByEmail(authRequest.getUsername()).getData();
+        if(user.isVerified()) {
+        	return tokenCreator(authRequest.getUsername());
+        }else {
+        	return new ErrorDataResult<TokenResult>("Sisteme giriş için lütfen e-posta doğrulaması yapınız");
+        }
+        
     }
     @GetMapping("/renewtoken")
     public DataResult<TokenResult> renewToken(@RequestHeader("Authorization") String lang) {

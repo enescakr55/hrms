@@ -25,6 +25,7 @@ public class JobAdvertAddDto {
 
 	private Date lastDate;
 	private boolean Active;
+	private boolean closed;
 	private int jobTimeId;
 
 	private int jobTypeId;

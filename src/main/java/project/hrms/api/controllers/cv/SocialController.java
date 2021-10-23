@@ -45,4 +45,12 @@ public class SocialController {
 	public DataResult<List<Social>> getByUserId(int userid){
 		return socialService.getByUserId(userid);
 	}
+	@PostMapping("/addmysocial")
+	public Result addMySocial(@RequestBody Social social) {
+		return socialService.addMySocial(social);
+	}
+	@GetMapping("/deletemysocial")
+	public Result deleteMySocial(int socialid) {
+		return socialService.deleteMySocial(socialid);
+	}
 }

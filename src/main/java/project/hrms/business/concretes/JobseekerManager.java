@@ -1,5 +1,6 @@
 package project.hrms.business.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -7,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import project.hrms.business.abstracts.ImageUploadService;
+import project.hrms.business.abstracts.JobApplyService;
 import project.hrms.business.abstracts.JobseekerService;
 import project.hrms.business.abstracts.UserService;
+import project.hrms.business.abstracts.cv.SocialService;
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.ErrorResult;
 import project.hrms.core.utilities.results.Result;
@@ -16,20 +20,28 @@ import project.hrms.core.utilities.results.SuccessDataResult;
 import project.hrms.core.utilities.results.SuccessResult;
 import project.hrms.core.utilities.services.FakeMernisService;
 import project.hrms.dataacess.abstracts.JobseekerDao;
+import project.hrms.entities.concretes.JobApply;
 import project.hrms.entities.concretes.Jobseeker;
+import project.hrms.entities.concretes.ProfileImage;
 import project.hrms.entities.concretes.User;
+import project.hrms.entities.concretes.cv.Social;
 import project.hrms.entities.concretes.dtos.JobseekerRegisterDto;
+import project.hrms.entities.concretes.dtos.JobseekersListDto;
 @Service
 public class JobseekerManager implements JobseekerService{
 
 
 	JobseekerDao jobseekerDao;
 	UserService userService;
+	ImageUploadService imageService;
+	JobApplyService jobApplyService;
 	@Autowired
-	public JobseekerManager(JobseekerDao jobseekerDao,UserService userService) {
+	public JobseekerManager(JobseekerDao jobseekerDao,UserService userService,ImageUploadService imageService,JobApplyService jobApplyService) {
 		super();
 		this.userService = userService;
 		this.jobseekerDao = jobseekerDao;
+		this.imageService = imageService;
+		this.jobApplyService = jobApplyService;
 	}
 	@Override
 	public DataResult<List<Jobseeker>> getAll() {
@@ -92,6 +104,35 @@ public class JobseekerManager implements JobseekerService{
 			return userAdd;
 		}
 		
+	}
+	@Override
+	public DataResult<List<JobseekersListDto>> getJobseekerDetails(List<Jobseeker> jobseekerList) {
+		List<JobseekersListDto> jobseekerDetails = new ArrayList<JobseekersListDto>();
+		for (Jobseeker js : jobseekerList) {
+			Jobseeker jobseeker = jobseekerDao.getByJobseekerId(js.getJobseekerId());
+			User user = jobseeker.getUser();
+			ProfileImage profileImage = imageService.getProfilePictureByUserId(user.getId()).getData();
+			JobseekersListDto jsld = new JobseekersListDto(user, jobseeker, profileImage);
+			jobseekerDetails.add(jsld);
+			
+		}
+		return new SuccessDataResult<List<JobseekersListDto>>(jobseekerDetails);
+	}
+	@Override
+	public DataResult<List<JobseekersListDto>> getAllJobseekerDetails() {
+		return getJobseekerDetails(jobseekerDao.findAll());
+	}
+	public DataResult<List<JobseekersListDto>> getJobseekersIfJobAdvertApply(int jobAdvertId){
+		List<JobseekersListDto> jobseekerDetails = new ArrayList<JobseekersListDto>();
+		List<JobApply> jobApplies = jobApplyService.getByJobAdvertId(jobAdvertId).getData();
+		for (JobApply jobApply : jobApplies) {
+			Jobseeker jobseeker = jobApply.getJobseekerId();
+			User user = jobseeker.getUser();
+			ProfileImage profileImage = imageService.getProfilePictureByUserId(user.getId()).getData();
+			JobseekersListDto jsld = new JobseekersListDto(user, jobseeker, profileImage);
+			jobseekerDetails.add(jsld);
+		}
+		return new SuccessDataResult<List<JobseekersListDto>>(jobseekerDetails);
 	}
 
 

@@ -15,4 +15,6 @@ public interface SocialService {
 	public DataResult<List<Social>> getAll();
 	public DataResult<List<Social>> getByUserId(int userid);
 	public Result update(Social social);
+	public Result addMySocial(Social social);
+	public Result deleteMySocial(int socialId);
 }

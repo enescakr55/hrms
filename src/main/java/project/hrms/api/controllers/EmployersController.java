@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.hrms.business.abstracts.EmployerService;
+import project.hrms.business.abstracts.GetAuthenticatedUserService;
 import project.hrms.core.utilities.results.DataResult;
 import project.hrms.core.utilities.results.Result;
 import project.hrms.entities.concretes.Employer;
@@ -23,11 +24,12 @@ import project.hrms.entities.concretes.dtos.EmployerRegister;
 @CrossOrigin
 public class EmployersController {
 	EmployerService employerService;
-	
+	GetAuthenticatedUserService getAuthenticatedUserService;
 	@Autowired
-	public EmployersController(EmployerService employerService) {
+	public EmployersController(EmployerService employerService,GetAuthenticatedUserService getAuthenticatedUserService) {
 		super();
 		this.employerService = employerService;
+		this.getAuthenticatedUserService = getAuthenticatedUserService;
 	}
 	@GetMapping("/getall")
 	public DataResult<List<Employer>> getAll(){
@@ -45,6 +47,10 @@ public class EmployersController {
 	@GetMapping("/isemployer")
 	public boolean isEmployer(int userid) {
 		return employerService.isEmployer(userid);
+	}
+	@GetMapping("/me")
+	public DataResult<Employer> getMe(){
+		return getAuthenticatedUserService.getEmployer();
 	}
 
 	

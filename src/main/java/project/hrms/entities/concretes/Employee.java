@@ -25,8 +25,6 @@ public class Employee {
 	private int employeeid;
 	//@Column(name="user_id")
 	//private int userId;
-	@Column(name="role_id")
-	private int roleId;
 	//@Column(name="is_verified")
 	//private boolean isVerified;
 	@Column(name="first_name")
@@ -34,6 +32,9 @@ public class Employee {
 	@Column(name="last_name")
 	private String lastName;
 	
+	@OneToOne()
+	@JoinColumn(name="role_id")
+	private Role role;
 	@OneToOne()
 	@JoinColumn(name="user_id")
 	private User user;

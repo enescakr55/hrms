@@ -37,15 +37,21 @@ public class MailVerifyManager implements MailVerifyService {
 		this.jobseekerService = jobseekerService;
 	}
 	@Override
-	public Result SendVerificationCode(User user) {
-		User currentUser = userService.getByEmail(user.getEmail()).getData();
+	public Result SendVerificationCode(String email) {
+		User currentUser = userService.getByEmail(email).getData();
 		String kod = getSaltString();
 		MailVerify entity = new MailVerify();
 		entity.setUserId(currentUser.getId());
 		entity.setVerificationCode(kod);
 		mailDao.save(entity);
-		boolean isSend = mailSender.SendVerificationMail(user,kod);
-		return new Result(isSend);
+		if(currentUser.isVerified()) {
+			return new ErrorResult("Bu hesap zaten doğrulanmış");
+		}
+		boolean isSend = mailSender.SendVerificationMail(currentUser,kod);
+		if(isSend) {
+			return new SuccessResult("Doğrulama kodu gönderildi");
+		}
+		return new ErrorResult("Doğrulama kodu gönderilemedi");
 	}
 
 	@Override

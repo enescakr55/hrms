@@ -49,6 +49,8 @@ public class JobAdvert {
 	private Date lastDate;
 	@Column(name="active")
 	private boolean Active;
+	@Column(name="closed")
+	private boolean closed;
 	@OneToOne
 	@JoinColumn(name = "job_time_id")
 	private JobTime jobTime;

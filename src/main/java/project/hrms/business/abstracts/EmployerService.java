@@ -14,4 +14,5 @@ public interface EmployerService {
 	Result register(EmployerRegister employerRegister);
 	boolean isEmployer(int userId);
 	DataResult<Employer> getById(int id);
+	Result update(Employer employer);
 }

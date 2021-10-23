@@ -1,5 +1,6 @@
 package project.hrms.api.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,12 @@ public class JobAppliesController {
     	User user = userService.getByEmail(mail).getData();
     	if(jobseekerService.isJobseeker(user.getId()) == false) {
     		return new ErrorResult("Sistemde iş arayan olarak kaydınız bulunmamaktadır. İş başvurusu yapılamadı.");
+    	}
+    	JobAdvert currentAdvert = jobAdvertService.getByAdvertId(jobAdvert.getAdvertId()).getData();
+    	if(currentAdvert.getLastDate() != null ) {
+    		if(currentAdvert.getLastDate().getTime() - System.currentTimeMillis() < 0) {
+    			return new ErrorResult("Başvuru süresi bitmiştir");
+    		}
     	}
     	Jobseeker jobseeker = jobseekerService.getById(user.getId()).getData();
     	if(jobApplyService.getJobApplyWithJobseekerIdAndJobAdvertId(jobseeker.getJobseekerId(), jobAdvert.getAdvertId()).getData() != null){

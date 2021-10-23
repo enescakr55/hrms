@@ -76,7 +76,8 @@ public class JobAdvertManager implements JobAdvertService{
 		Role role = new Role(); role.setId(jobAdvertAddDto.getRoleId());
 		JobTime jobTime = new JobTime(); jobTime.setJobTimeId(jobAdvertAddDto.getJobTimeId());
 		JobType jobType = new JobType(); jobType.setJobTypeId(jobAdvertAddDto.getJobTypeId());
-		JobAdvert jobAdvert = new JobAdvert(0, employer, role, city, jobAdvertAddDto.getMaxSalary(), jobAdvertAddDto.getMinSalary(), jobAdvertAddDto.getDescription(), jobAdvertAddDto.getOpenPositionNumber(), jobAdvertAddDto.getLastDate(), false, jobTime, jobType);
+		//JobAdvert jobAdvert = new JobAdvert(0, employer, role, city, jobAdvertAddDto.getMaxSalary(), jobAdvertAddDto.getMinSalary(), jobAdvertAddDto.getDescription(), jobAdvertAddDto.getOpenPositionNumber(), jobAdvertAddDto.getLastDate(), false, jobTime, jobType);
+		JobAdvert jobAdvert = new JobAdvert(0, employer, role, city, jobAdvertAddDto.getMaxSalary(), jobAdvertAddDto.getMinSalary(), jobAdvertAddDto.getDescription(), jobAdvertAddDto.getOpenPositionNumber(), jobAdvertAddDto.getLastDate(), false, false, jobTime, jobType);
 		jobAdvertDao.save(jobAdvert);
 		return new SuccessResult("İş ilanı eklendi");
 	}
